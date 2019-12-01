@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QLabel>
 #include <QString>
+#include <QFile>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->difRezButton->setVisible(false);
+    on_downloadMatrixButton_clicked();
 
     connect(ui->newMatrixButton, SIGNAL(cliced()), this, SLOT(on_newMatrixButton_clicked()));
     connect(ui->itemChangeButton, SIGNAL(cliced()), this, SLOT(on_itemChangeButton_clicked()));
@@ -20,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->itemChangeAButton,  SIGNAL(cliced()), this, SLOT(on_itemChangeAButton_clicked()));
     connect(ui->lineEntryBButton, SIGNAL(cliced()), this, SLOT(on_lineEntryBButton_clicked()));
     connect(ui->itemChangeBButton,  SIGNAL(cliced()), this, SLOT(on_itemChangeBButton_clicked()));
+    connect(ui->difRezButton, SIGNAL(cliced()), this, SLOT(on_difRezButton_clicked()));
+    connect(ui->equalButton, SIGNAL(cliced()), this, SLOT(on_equalButton_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -189,6 +194,8 @@ bool MainWindow::checkLine(QString line, int i)
 void MainWindow::on_newMatrixButton_clicked()
 {
     //Настройка меню
+    ui->OkButton->setEnabled(true);
+    ui->label->clear();
     ui->matrixChangeMenue->setEnabled(false);
     ui->lineEdit->setEnabled(false);
 
@@ -212,8 +219,12 @@ void MainWindow::on_newMatrixButton_clicked()
     numMenue = 1;
 }
 
+
+
 void MainWindow::on_itemChangeButton_clicked()
 {
+    ui->label->clear();
+    ui->OkButton->setEnabled(true);
     ui->matrixChangeMenue->setEnabled(false);
     ui->lineEdit->setEnabled(true);
 
@@ -241,8 +252,12 @@ void MainWindow::on_itemChangeButton_clicked()
     numMenue = 2;
 }
 
+
+
 void MainWindow::on_getValueButton_clicked()
 {
+    ui->label->clear();
+    ui->OkButton->setEnabled(true);
     ui->matrixChangeMenue->setEnabled(false);
     ui->lineEdit->setEnabled(true);
 
@@ -269,8 +284,12 @@ void MainWindow::on_getValueButton_clicked()
     numMenue = 3;
 }
 
+
+
 void MainWindow::on_lineEntryButton_clicked()
 {
+    ui->label->clear();
+    ui->OkButton->setEnabled(true);
     ui->matrixChangeMenue->setEnabled(false);
     ui->lineEdit->setEnabled(true);
 
@@ -295,8 +314,11 @@ void MainWindow::on_lineEntryButton_clicked()
     numMenue = 4;
 }
 
+
+
 void MainWindow::on_difMatrixButton_clicked()
 {
+    ui->OkButton->setEnabled(true);
     ui->sizeSpinBox_1->setEnabled(false);
     ui->sizeSpinBox_2->setEnabled(false);
     ui->lineEdit->setEnabled(false);
@@ -328,8 +350,11 @@ void MainWindow::on_difMatrixButton_clicked()
     numMenue = 5;
 }
 
+
+
 void MainWindow::on_lineEntryAButton_clicked()
 {
+    ui->OkButton->setEnabled(true);
     if(difFlag == true)
         ui->difRezButton->setVisible(true);
     else
@@ -352,8 +377,11 @@ void MainWindow::on_lineEntryAButton_clicked()
     numMenue = 4;
 }
 
+
+
 void MainWindow::on_itemChangeAButton_clicked()
 {
+    ui->OkButton->setEnabled(true);
     if(difFlag == true)
         ui->difRezButton->setVisible(true);
     else
@@ -378,8 +406,11 @@ void MainWindow::on_itemChangeAButton_clicked()
     numMenue = 2;
 }
 
+
+
 void MainWindow::on_lineEntryBButton_clicked()
 {
+    ui->OkButton->setEnabled(true);
     if(difFlag == true)
             ui->difRezButton->setVisible(true);
         else
@@ -402,8 +433,11 @@ void MainWindow::on_lineEntryBButton_clicked()
         numMenue = 6;
 }
 
+
+
 void MainWindow::on_itemChangeBButton_clicked()
 {
+    ui->OkButton->setEnabled(true);
     if(difFlag == true)
         ui->difRezButton->setVisible(true);
     else
@@ -428,6 +462,8 @@ void MainWindow::on_itemChangeBButton_clicked()
     numMenue = 7;
 }
 
+
+
 void MainWindow::on_difRezButton_clicked()
 {
     DifMatrixVector.clear();
@@ -435,6 +471,8 @@ void MainWindow::on_difRezButton_clicked()
         DifMatrixVector.push_back(AMatrixVector[i] - BMatrixVector[i]);
     setDifMatrixLabel();
 }
+
+
 
 void MainWindow::on_equalMatrixButton_clicked()
 {
@@ -469,6 +507,8 @@ void MainWindow::on_equalMatrixButton_clicked()
     numMenue = 5;
 }
 
+
+
 void MainWindow::on_equalButton_clicked()
 {
     bool flag = false;
@@ -487,6 +527,99 @@ void MainWindow::on_equalButton_clicked()
     else
         ui->label->setText("Равны");
 }
+
+
+
+void MainWindow::on_saveMatrixButton_clicked()
+{
+    ui->BMatrixLabel->clear();
+    ui->label->clear();
+
+    ui->sizeSpinBox_1->setEnabled(false);
+    ui->sizeSpinBox_2->setEnabled(false);
+    ui->lineEdit->setEnabled(false);
+    ui->OkButton->setEnabled(false);
+
+    ui->difRezButton->setVisible(false);
+    ui->equalButton->setVisible(false);
+
+    ui->matrixChangeMenue->setEnabled(false);
+    ui->getValueButton->setDown(true);
+    ui->itemChangeButton->setDown(true);
+    ui->lineEntryButton->setDown(true);
+    ui->newMatrixButton->setDown(true);
+    ui->difMatrixButton->setDown(true);
+    ui->equalMatrixButton->setDown(true);
+    ui->saveMatrixButton->setDown(true);
+    ui->downloadMatrixButton->setDown(true);
+
+    QFile data("D:\\QtProject\\UpperTriangularMatrix\\data.txt");
+    QTextStream in(&data);
+    if(data.open(QIODevice::WriteOnly) && data.isOpen())
+    {
+        in << AMatrixSize << "\n";
+        for(int i = 0; i < AMatrixVector.size(); i++)
+            in << AMatrixVector[i] << " ";
+        data.flush();
+        data.close();
+    }
+    else
+        ui->label->setText("Ошибка");
+}
+
+
+
+void MainWindow::on_downloadMatrixButton_clicked()
+{
+    ui->BMatrixLabel->clear();
+    ui->label->clear();
+
+    ui->sizeSpinBox_1->setEnabled(false);
+    ui->sizeSpinBox_2->setEnabled(false);
+    ui->lineEdit->setEnabled(false);
+    ui->OkButton->setEnabled(false);
+
+    ui->difRezButton->setVisible(false);
+    ui->equalButton->setVisible(false);
+
+    ui->matrixChangeMenue->setEnabled(false);
+    ui->getValueButton->setDown(true);
+    ui->itemChangeButton->setDown(true);
+    ui->lineEntryButton->setDown(true);
+    ui->newMatrixButton->setDown(true);
+    ui->difMatrixButton->setDown(true);
+    ui->equalMatrixButton->setDown(true);
+    ui->saveMatrixButton->setDown(true);
+    ui->downloadMatrixButton->setDown(true);
+
+    QFile data("D:\\QtProject\\UpperTriangularMatrix\\data.txt");
+    QTextStream out(&data);
+    if(data.open(QIODevice::ReadOnly) && data.isOpen())
+    {
+        QString temp = data.readLine();
+        AMatrixSize = temp.toInt();
+        temp = data.readLine();
+
+        AMatrixVector.clear();
+        int first = 0, last;
+        for(int i = 0; i < temp.size(); i++)
+        {
+            if(temp[i] == " ")
+            {
+                QString t;
+                last = i - 1;
+                t = temp.mid(first, last - first + 1);
+                AMatrixVector.push_back(t.toInt());
+                first = i + 1;
+            }
+        }
+        setAMatrixLabel();
+        data.close();
+    }
+    else
+        ui->label->setText("Ошибка");
+}
+
 
 
 void MainWindow::on_OkButton_clicked()
@@ -636,9 +769,3 @@ void MainWindow::on_OkButton_clicked()
         }
     }
 }
-
-
-
-
-
-

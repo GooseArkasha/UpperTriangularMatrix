@@ -204,14 +204,14 @@
       <item>
        <widget class="QRadioButton" name="saveMatrixButton">
         <property name="text">
-         <string>Загрузить сохраненную матрицу</string>
+         <string>Сохранить матрицу</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QRadioButton" name="downloadMatrixButton">
         <property name="text">
-         <string>Сохраненную матрицу</string>
+         <string>Загрузить сохраненную матрицу</string>
         </property>
        </widget>
       </item>
@@ -244,7 +244,7 @@
      </rect>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Box</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string/>
@@ -260,7 +260,7 @@
      </rect>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Box</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string/>
