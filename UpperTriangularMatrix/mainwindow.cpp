@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->difRezButton->setVisible(false);
     on_downloadMatrixButton_clicked();
 
+    setWindowTitle("Upper Triangular Matrix");
+
     connect(ui->newMatrixButton, SIGNAL(cliced()), this, SLOT(on_newMatrixButton_clicked()));
     connect(ui->itemChangeButton, SIGNAL(cliced()), this, SLOT(on_itemChangeButton_clicked()));
     connect(ui->OkButton, SIGNAL(cliced()), this, SLOT(on_OkButton_clicked()));
@@ -41,6 +43,7 @@ void MainWindow::setAMatrixLabel()
     QString temp;
     int num;
 
+    ui->AMatrixlabel->setText("\n");
     for(int i = 1; i <= AMatrixSize;i++)
     {
         for(int j = 1; j <= AMatrixSize;j++)
@@ -68,6 +71,7 @@ void MainWindow::setBMatrixLabel()
     QString temp;
     int num;
 
+    ui->BMatrixLabel->setText("\n");
     for(int i = 1; i <= BMatrixSize;i++)
     {
         for(int j = 1; j <= BMatrixSize;j++)
@@ -95,6 +99,7 @@ void MainWindow::setDifMatrixLabel()
     QString temp;
     int num;
 
+    ui->label->setText("\n");
     for(int i = 1; i <= AMatrixSize;i++)
     {
         for(int j = 1; j <= AMatrixSize;j++)
@@ -194,6 +199,7 @@ bool MainWindow::checkLine(QString line, int i)
 void MainWindow::on_newMatrixButton_clicked()
 {
     //Настройка меню
+    ui->lineEdit->clear();
     ui->OkButton->setEnabled(true);
     ui->label->clear();
     ui->matrixChangeMenue->setEnabled(false);
@@ -244,7 +250,7 @@ void MainWindow::on_itemChangeButton_clicked()
     ui->sizeSpinBox_2->setValue(1);
     ui->sizeSpinBox_2->setMaximum(AMatrixSize);
 
-    ui->lineEdit->setText("0");
+    ui->lineEdit->setText("");
 
     ui->BMatrixLabel->setText("");
     setAMatrixLabel();
@@ -400,7 +406,7 @@ void MainWindow::on_itemChangeAButton_clicked()
     ui->sizeSpinBox_2->setValue(1);
     ui->sizeSpinBox_2->setMaximum(AMatrixSize);
 
-    ui->lineEdit->setText("0");
+    ui->lineEdit->setText("");
 
     ui->lineEdit->setEnabled(true);
     numMenue = 2;
@@ -456,7 +462,7 @@ void MainWindow::on_itemChangeBButton_clicked()
     ui->sizeSpinBox_2->setValue(1);
     ui->sizeSpinBox_2->setMaximum(BMatrixSize);
 
-    ui->lineEdit->setText("0");
+    ui->lineEdit->setText("");
 
     ui->lineEdit->setEnabled(true);
     numMenue = 7;
@@ -651,7 +657,7 @@ void MainWindow::on_OkButton_clicked()
             }
             else
             {
-                ui->lineEdit->setText("Выбраный элемент не доступен");
+                ui->lineEdit->setText("Элемент не доступен");
             }
 
         }
@@ -759,7 +765,7 @@ void MainWindow::on_OkButton_clicked()
             }
             else
             {
-                ui->lineEdit->setText("Выбраный элемент не доступен");
+                ui->lineEdit->setText("Элемент не доступен");
             }
 
         }
