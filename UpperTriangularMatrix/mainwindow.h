@@ -19,11 +19,22 @@ public:
     ~MainWindow();
 
     int numMenue = 0;
-    int AMatrixSize, BMatrixSize, CMatrixSize;
-    QVector<int> AMatrix, BMatrix, DifMatrix;
+    bool difFlag = false, equalFlag = false;
+    QVector<int> AMatrixVector, BMatrixVector, DifMatrixVector; //Хранятся элементы матрицы, расположенные не ниже главной диаголнали
+    int AMatrixSize = 0, BMatrixSize = 0, DifMatrixSize = 0;    //Данное должно обновляться только при создании новой матрицы
+
+
+    //Функции обновления лейблов с матрицами
     void setAMatrixLabel();
+
     void setBMatrixLabel();
-    bool checkNumber(QString line);
+
+    void setDifMatrixLabel();
+
+    //Функции проверки введенных данных
+    bool checkNumber(QString line);         //Используется для проверки при введении 1 числа
+
+    bool checkLine(QString line, int i);    //Используется для проверки при введении строки
 
 
 private slots:
@@ -33,6 +44,26 @@ private slots:
     void on_OkButton_clicked();
 
     void on_itemChangeButton_clicked();
+
+    void on_getValueButton_clicked();
+
+    void on_lineEntryButton_clicked();
+
+    void on_difMatrixButton_clicked();
+
+    void on_equalMatrixButton_clicked();
+
+    void on_lineEntryAButton_clicked();
+
+    void on_itemChangeAButton_clicked();
+
+    void on_lineEntryBButton_clicked();
+
+    void on_itemChangeBButton_clicked();
+
+    void on_difRezButton_clicked();
+
+    void on_equalButton_clicked();
 
 private:
     Ui::MainWindow *ui;
