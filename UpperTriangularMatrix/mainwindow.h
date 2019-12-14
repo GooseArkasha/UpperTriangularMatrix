@@ -69,6 +69,10 @@ private slots:
 
     void on_downloadMatrixButton_clicked();
 
+    void on_BEqualAButton_clicked();
+
+    void on_getLineButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

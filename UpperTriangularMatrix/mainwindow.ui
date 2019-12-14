@@ -78,7 +78,7 @@
        <x>10</x>
        <y>20</y>
        <width>321</width>
-       <height>151</height>
+       <height>191</height>
       </rect>
      </property>
      <property name="title">
@@ -90,7 +90,7 @@
         <x>10</x>
         <y>30</y>
         <width>305</width>
-        <height>115</height>
+        <height>151</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="singleMatrixMenuLayout">
@@ -146,6 +146,20 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QRadioButton" name="getLineButton">
+         <property name="styleSheet">
+          <string notr="true">QRadioButton {
+	backgound-color: rgb(255, 255, 255);
+	font: 10pt &quot;Times New Roman&quot;;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Получение строки</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -155,7 +169,7 @@
        <x>10</x>
        <y>220</y>
        <width>321</width>
-       <height>231</height>
+       <height>251</height>
       </rect>
      </property>
      <property name="title">
@@ -167,7 +181,7 @@
         <x>10</x>
         <y>20</y>
         <width>301</width>
-        <height>201</height>
+        <height>221</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="twoMatrixMenueLayout">
@@ -211,7 +225,7 @@
             <x>30</x>
             <y>20</y>
             <width>239</width>
-            <height>115</height>
+            <height>131</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="matrixChangeMenueLayout">
@@ -276,6 +290,19 @@
              </property>
              <property name="text">
               <string>Изменить элемент матрицы В</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="BEqualAButton">
+             <property name="styleSheet">
+              <string notr="true">QRadioButton {
+	backgound-color: rgb(255, 255, 255);
+	font: 8pt &quot;Times New Roman&quot;;
+}</string>
+             </property>
+             <property name="text">
+              <string>Приравнять матрицу B к А</string>
              </property>
             </widget>
            </item>

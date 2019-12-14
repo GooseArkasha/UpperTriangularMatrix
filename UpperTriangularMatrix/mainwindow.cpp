@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->itemChangeBButton,  SIGNAL(cliced()), this, SLOT(on_itemChangeBButton_clicked()));
     connect(ui->difRezButton, SIGNAL(cliced()), this, SLOT(on_difRezButton_clicked()));
     connect(ui->equalButton, SIGNAL(cliced()), this, SLOT(on_equalButton_clicked()));
+    connect(ui->BEqualAButton, SIGNAL(cliced()), this, SLOT(on_BEqualAButton_clicked()));
+
+
 }
 
 MainWindow::~MainWindow()
@@ -221,6 +224,7 @@ void MainWindow::on_newMatrixButton_clicked()
 
     ui->AMatrixlabel->setText("0");
     ui->BMatrixLabel->setText("");
+    ui->label->setText("");
 
     numMenue = 1;
 }
@@ -253,6 +257,7 @@ void MainWindow::on_itemChangeButton_clicked()
     ui->lineEdit->setText("");
 
     ui->BMatrixLabel->setText("");
+    ui->label->setText("");
     setAMatrixLabel();
 
     numMenue = 2;
@@ -285,6 +290,7 @@ void MainWindow::on_getValueButton_clicked()
 
     ui->lineEdit->setText("");
     ui->BMatrixLabel->setText("");
+    ui->label->setText("");
     setAMatrixLabel();
 
     numMenue = 3;
@@ -315,6 +321,7 @@ void MainWindow::on_lineEntryButton_clicked()
 
     ui->lineEdit->setText("");
     ui->BMatrixLabel->setText("");
+    ui->label->setText("");
     setAMatrixLabel();
 
     numMenue = 4;
@@ -332,6 +339,7 @@ void MainWindow::on_difMatrixButton_clicked()
     ui->difRezButton->setVisible(true);
     ui->equalButton->setVisible(false);
 
+    ui->BEqualAButton->setEnabled(true);
     ui->matrixChangeMenue->setEnabled(true);
     ui->getValueButton->setDown(true);
     ui->itemChangeButton->setDown(true);
@@ -352,6 +360,7 @@ void MainWindow::on_difMatrixButton_clicked()
     }
     setAMatrixLabel();
     setBMatrixLabel();
+    ui->label->setText("");
 
     numMenue = 5;
 }
@@ -774,4 +783,62 @@ void MainWindow::on_OkButton_clicked()
             ui->lineEdit->setText("Введите число(-10 000;10 000)");
         }
     }
+    if(numMenue == 8)
+    {
+        ui->lineEdit->clear();
+        int i = ui->sizeSpinBox_1->value();
+        int j = i;
+        int num = (i - 1) * AMatrixSize + j - (i - 1) * i / 2 - 1;
+        QString temp;
+        for(int k = 0; k < i - 1; k++)
+        {
+            temp = ui->lineEdit->text();
+            ui->lineEdit->setText(temp + "0" + " ");
+        }
+        for(int k = 0; k < AMatrixSize - i + 1; k++)
+        {
+            temp = ui->lineEdit->text();
+            ui->lineEdit->setText(temp + " " + QString::number(AMatrixVector[num]));
+            num++;
+        }
+    }
+}
+
+void MainWindow::on_BEqualAButton_clicked()
+{
+    BMatrixSize = AMatrixSize;
+    for(int i = 0; i < AMatrixVector.size(); i++)
+    {
+        BMatrixVector[i] = AMatrixVector[i];
+    }
+    setBMatrixLabel();
+}
+
+void MainWindow::on_getLineButton_clicked()
+{
+    ui->label->clear();
+    ui->OkButton->setEnabled(true);
+    ui->matrixChangeMenue->setEnabled(false);
+    ui->lineEdit->setEnabled(true);
+
+    ui->difRezButton->setVisible(false);
+    ui->equalButton->setVisible(false);
+
+    ui->difMatrixButton->setDown(true);
+    ui->equalMatrixButton->setDown(true);
+    ui->saveMatrixButton->setDown(true);
+    ui->downloadMatrixButton->setDown(true);
+
+    ui->sizeSpinBox_1->setEnabled(true);
+    ui->sizeSpinBox_1->setValue(1);
+    ui->sizeSpinBox_1->setMaximum(AMatrixSize);
+
+    ui->sizeSpinBox_2->setEnabled(false);
+
+    ui->lineEdit->setText("");
+    ui->BMatrixLabel->setText("");
+    ui->label->setText("");
+    setAMatrixLabel();
+
+    numMenue = 8;
 }
